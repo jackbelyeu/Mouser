@@ -8,6 +8,7 @@ from shared.tk_models import *
 from databases.experiment_database import ExperimentDatabase
 from databases.data_collection_database import DataCollectionDatabase
 from shared.audio import AudioManager
+from shared.scrollable_frame import ScrolledFrame
 
 #pylint: disable= undefined-variable
 class DataCollectionUI(MouserPage):
@@ -38,7 +39,10 @@ class DataCollectionUI(MouserPage):
         self.animals = self.database.get_animals()
         self.table_frame = CTkFrame(self)
         self.table_frame.place(relx=0.50, rely=0.65, anchor=CENTER)
-
+        scroll_canvas = ScrolledFrame(self)
+        scroll_canvas.place(relx=0.10, rely=0.25, relheight=0.7, relwidth=0.8)
+        self.main_frame = CTkFrame(scroll_canvas)
+        self.main_frame.pack(side=LEFT, expand=True)
         columns = ['animal_id']
         for measurement_id in self.measurement_ids:
             columns.append(measurement_id)
